@@ -6,7 +6,7 @@ module Slackathon
 
     def self.dispatch_interaction(params)
       action = params[:actions][0]
-      method = self.new(params).public_method(action[:name])
+      method = self.new(params).public_method(action[:action_id])
       value = action[:value]
 
       if method.arity == 0
