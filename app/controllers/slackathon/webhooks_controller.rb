@@ -12,7 +12,8 @@ module Slackathon
     end
 
     def interaction
-      command = payload[:callback_id]
+      #command = "payload[:callback_id]"
+      command = "zenhubs"
       klass = "#{command}_command".classify.constantize
 
       SlackCommandJob.perform_later(klass.name, "interaction", payload)
