@@ -41,6 +41,7 @@ module Slackathon
       actual_token = payload.delete(:token)
 
       if Rails.env.production? || expected_token
+        raise "Actual token = #{actual_token}, expected token = #{expected_token}"
         raise "Incorrect slack verification token" unless expected_token == actual_token
       end
     end
