@@ -28,15 +28,9 @@ module Slackathon
 
     def payload
       @payload ||= params[:payload] ? JSON.parse(params[:payload]).with_indifferent_access : params
-      Rails.logger.info(
-        "#{@payload} is the payload coming in"
-      )
     end
 
     def verify_token
-      Rails.logger.info(
-        "trying to verify token"
-      )
       expected_token = Slackathon.verification_token
       actual_token = payload.delete(:token)
 
