@@ -4,6 +4,9 @@ module Slackathon
 
     def command
       command = payload[:command][1..-1]
+      Rails.logger.info(
+        "#{command} is working"
+      )
       klass = "#{command}_command".classify.constantize
 
       SlackCommandJob.perform_later(klass.name, "command", payload.to_unsafe_h)
@@ -25,9 +28,15 @@ module Slackathon
 
     def payload
       @payload ||= params[:payload] ? JSON.parse(params[:payload]).with_indifferent_access : params
+      Rails.logger.info(
+        "#{@payload} is the payload coming in"
+      )
     end
 
     def verify_token
+      Rails.logger.info(
+        "trying to verify token"
+      )
       expected_token = Slackathon.verification_token
       actual_token = payload.delete(:token)
 
